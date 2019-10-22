@@ -25,9 +25,8 @@ const usedInvite = async ({ ISNode, JSEncrypt, mainKey }) => {
   await alice.keys.create(invite, new JSEncrypt())
 
   await bob.connect()
-  await expect((async () => {
-    await bob.keys.create(invite, new JSEncrypt())
-  })()).rejects.toThrow()
+  await expect(bob.keys.create(invite, new JSEncrypt()))
+    .rejects.toThrow()
 }
 
 usedInvite.meta = {

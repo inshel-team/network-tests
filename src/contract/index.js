@@ -1,3 +1,5 @@
+const testRay = (ray) => ray != null && ray[0] === '#'
+
 export default ({ node, key, contract }, lambda, params, keyId) => {
   switch (lambda) {
     case 'contracts.sign-up':
@@ -8,16 +10,19 @@ export default ({ node, key, contract }, lambda, params, keyId) => {
         throw new Error('Invalid params')
       }
 
-      setTimeout(() => {
-        params.rays.forEach((ray) => {
-          if (ray[0] !== '#') {
-            return
-          }
-
-          node.rays.message(key, contract, ray, JSON.stringify({ answer: 42 }))
-        })
-      }, 1000)
-      return params.rays.map((ray) => ray[0] === '#')
+      const result = params.rays.map(testRay)
+      if (result.indexOf(true) >= 0) {
+        setTimeout(() => {
+          params.rays.forEach((ray) => {
+            if (!testRay(ray)) {
+              return
+            }
+  
+            node.rays.message(key, contract, ray, JSON.stringify({ answer: 42 }))
+          })
+        }, 1000)
+      }
+      return result
 
     case 'answer':
       return { question: null, answer: 42 }

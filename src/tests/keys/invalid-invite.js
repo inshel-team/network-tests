@@ -13,9 +13,8 @@ const invalidInvite = async ({ ISNode, JSEncrypt }) => {
   const alice = new ISNode()
   await alice.connect()
   
-  await expect((async () => {
-    await alice.keys.create('INVALID INVITE', new JSEncrypt())
-  })()).rejects.toThrow()
+  await expect(alice.keys.create('INVALID INVITE', new JSEncrypt()))
+    .rejects.toThrow()
 }
 
 invalidInvite.meta = {

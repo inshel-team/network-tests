@@ -13,9 +13,8 @@ const approveInvalidKey = async ({ ISNode, JSEncrypt }) => {
   const alice = new ISNode()
   await alice.connect()
   
-  await expect((async () => {
-    await alice.keys.approve(new JSEncrypt())
-  })()).rejects.toThrow()
+  await expect(alice.keys.approve(new JSEncrypt()))
+    .rejects.toThrow()
 }
 
 approveInvalidKey.meta = {

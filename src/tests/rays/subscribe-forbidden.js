@@ -8,6 +8,7 @@ Actors
 Scenario
 - Alice connect to IS Network
 - Alice calls Bob subscribe to ray "test-${Date.now()}"
+- Bob reject this subscribe
 */
 
 const executeForbidden = async ({ ISNode, key, contract }) => {
@@ -23,7 +24,7 @@ const executeForbidden = async ({ ISNode, key, contract }) => {
 
 executeForbidden.meta = {
   chapter: 'Rays',
-  title: 'subscribe',
+  title: 'subscribe (forbidden)',
   need: {
     key: true,
     contract: true
